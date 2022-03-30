@@ -1,0 +1,9 @@
+h3 {
+  width: fit-content;
+}
+
+.selected {
+  padding-bottom: 0.4em;
+  border-bottom: 3px solid black;
+  font-weight: 900;
+}

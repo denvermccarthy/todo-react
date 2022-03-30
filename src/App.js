@@ -1,11 +1,15 @@
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { useState } from 'react';
 import './App.css';
+import { getUser } from './services/users';
 import Auth from './views/Auth/Auth';
 import Home from './views/Home/Home';
 
 function App() {
+  const [user, setUser] = useState(getUser());
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -14,7 +18,7 @@ function App() {
             <Home />
           </Route>
           <Route exact path={'/'}>
-            <Auth />
+            <Auth {...{ setUser }} />
           </Route>
         </Switch>
       </div>
