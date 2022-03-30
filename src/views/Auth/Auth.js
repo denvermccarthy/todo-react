@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { signInUser, signUpUser } from '../../services/users';
 import './Auth.css';
 
@@ -7,6 +8,8 @@ export default function Auth({ setUser }) {
   const [password, setPassword] = useState('');
   const [hasAccount, setHasAccount] = useState(true);
 
+  const history = useHistory();
+
   const submitCreds = (e) => {
     e.preventDefault();
     {
@@ -14,6 +17,7 @@ export default function Auth({ setUser }) {
         ? signInUser(username, password).then(({ email }) => setUser(email))
         : signUpUser(username, password).then(({ email }) => setUser(email));
     }
+    history.push('/todos');
     console.log('submitted');
   };
 
@@ -42,7 +46,7 @@ export default function Auth({ setUser }) {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <button>Sign</button>
+          <button>{hasAccount ? 'Sign In' : 'Sign Up'}</button>
         </form>
       </div>
     </div>

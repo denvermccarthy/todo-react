@@ -6,6 +6,7 @@ import './App.css';
 import { getUser } from './services/users';
 import Auth from './views/Auth/Auth';
 import Home from './views/Home/Home';
+import { Redirect } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -14,9 +15,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Switch>
-          <Route path={'/todos'}>
-            <Home />
-          </Route>
+          <Route path={'/todos'}>{user ? <Home /> : <Redirect to={'/'} />}</Route>
           <Route exact path={'/'}>
             <Auth {...{ setUser }} />
           </Route>
