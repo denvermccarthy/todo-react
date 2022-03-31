@@ -7,18 +7,25 @@ export default function Auth({ setUser }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hasAccount, setHasAccount] = useState(true);
+  const [error, setError] = useState('');
 
   const history = useHistory();
 
-  const submitCreds = (e) => {
+  const submitCreds = async (e) => {
     e.preventDefault();
-    {
-      hasAccount
-        ? signInUser(username, password).then(({ email }) => setUser(email))
-        : signUpUser(username, password).then(({ email }) => setUser(email));
+
+    try {
+      if (hasAccount) {
+        const resp = await signInUser(username, password);
+        setUser(resp.email);
+      } else {
+        const resp = await signUpUser(username, password);
+        setUser(resp.email);
+      }
+      history.push('/todos');
+    } catch (error) {
+      setError(error.message);
     }
-    history.push('/todos');
-    console.log('submitted');
   };
 
   return (
@@ -34,12 +41,13 @@ export default function Auth({ setUser }) {
           </h3>
         </div>
         <form onSubmit={submitCreds}>
+          {error && <div>{error}</div>}
           <label>
             Username:
             <input className="input" type="text" onChange={(e) => setUsername(e.target.value)} />
           </label>
           <label>
-            Username:
+            Password:
             <input
               className="input"
               type="password"
