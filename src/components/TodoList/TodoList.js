@@ -1,13 +1,10 @@
-import { useState, useEffect } from 'react';
-import { getTodos } from '../../services/todos';
+import ListItem from '../ListItem/ListItem';
 
 export default function TodoList({ todos }) {
   return (
     <div>
       {todos.map((item) => (
-        <p className="todo" key={item.id}>
-          {item.todo}
-        </p>
+        <ListItem key={item.id} todoObj={item} />
       ))}
     </div>
   );

@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import { createTodo } from '../../services/todos';
-import { getUser } from '../../services/users';
-
 export default function TodoInput({ todo, setTodo, submitHandler }) {
   return (
     <div>
