@@ -9,7 +9,7 @@ import Home from './views/Home/Home';
 import { Redirect } from 'react-router-dom';
 
 function App() {
-  const [user, setUser] = useState(getUser().email);
+  const [user, setUser] = useState(getUser());
 
   return (
     <BrowserRouter>
